@@ -8,6 +8,7 @@ function SuperLoop(opts){
 	// http://getcontext.net/read/settimeout-requestanimationframe
 	this.nonRenderInterval = opts.nonRenderInterval || 610;
 	this.ontick = opts.ontick || function(){};
+	this.ontick = opts.onrender || function(){};
 	this.capFps = 60;
 }
 SuperLoop.prototype.start = function(){
@@ -16,22 +17,25 @@ SuperLoop.prototype.start = function(){
 	var tick = function(){
 		// Cancel any timeouts.
 		window.cancelTimeout(_this.timeout);
-
-		// Fire the custom ontick code.
 		_this.ontick();
+	}
 
-		// Queue another tick.
+	var render = function(){
+		// Handle any rendering functions (animation frame related stuff)
+		tick();
+		_this.onrender();
 		queueTick();
 	}
 
 	var queueTick = function(){
 		// Request a callback before the next page redraw/animation frame.
-		_this.animationRequest = _this.requestAnimFrame(loop);
+		_this.animationRequest = _this.requestAnimFrame(render);
 
 		// Set a timeout to fire if we haven't received an animation frame.
 		_this.timeout = window.setTimeout(function(){
 			_this.cancelAnimFrame(_this.animationRequest);
 			tick();
+			queueTick();
 		},_this.nonRenderInterval)
 	}
 

@@ -23,7 +23,12 @@ To create a SuperLoop, use the following:
 
 	var myLoop = new SuperLoop({
 		ontick: function(){
-			// my tick stuff goes here.
+			// Your tick stuff goes here.
+			// (Unit movement, collision detection, housekeeping)
+		},
+		onrender: function(){
+			// Your render stuff goes here.
+			// (Drawing to screen)
 		}
 	});
 
