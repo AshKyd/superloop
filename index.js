@@ -19,7 +19,7 @@ function SuperLoop(opts){
 	 */
 	this.capFps = opts.capFps || 30;
 	this.ontick = opts.ontick || function(){};
-	this.ontick = opts.onrender || function(){};
+	this.onrender = opts.onrender || function(){};
 }
 
 /**

@@ -1,7 +1,4 @@
 {
   "name": "Superloop",
-  "version": "0.0.1",
-  "devDependencies": {
-    "Pixi.JS": "git://github.com/GoodBoyDigital/pixi.js.git"
-  }
+  "version": "0.0.1"
 }
